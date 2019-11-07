@@ -1,0 +1,9 @@
+<launch>
+    <!-- ASV description and parameters -->
+    <include file="$(find asv_description)/launch/asv.launch">
+        <arg name="system_name" value="boat2"/>
+    </include>
+
+    <!-- System monitor -->
+    <node name="system_monitor" pkg="system_monitor" type="vehicle_monitor.py" />
+</launch>

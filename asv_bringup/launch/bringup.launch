@@ -1,14 +1,7 @@
 <launch>
-    <!-- Vehicle name as hostname -->
-    <arg name="vehicle_name" default="$(optenv HOSTNAME localhost)"/>
+    <!-- Get hostname -->
+    <arg name="system_name" default="$(optenv HOSTNAME localhost)"/>
     
-    <!-- ASV description and parameters -->
-    <include file="$(find asv_description)/launch/asv.launch">
-        <arg name="vehicle" value="$(arg vehicle_name)"/>
-    </include>
-
-    <!-- ASV peripheral controller -->
-    
-    <!-- System monitor -->
-    <!-- <include file="$(find system_monitor)/launch/system_monitor.launch"/> -->
+    <!-- ASV-specific bringup file -->
+    <include file="$(find asv_bringup)/launch/include/$(arg system_name).launch" />
 </launch>
