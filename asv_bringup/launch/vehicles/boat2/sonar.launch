@@ -1,0 +1,6 @@
+<launch>    
+    <!-- ASV sidescanner -->
+    <include file="$(find ros_nmea_depth)/launch/lowrance.launch">
+        <arg name="address" value="$(env SONAR)"/>
+    </include>
+</launch>

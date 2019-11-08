@@ -3,14 +3,14 @@
 import serial
 import socket
 import rospy
-from system_monitor_msgs.msg import VehicleStatus
+from system_monitor.msg import VehicleStatus
 
 class Controller:
     def __init__(self, **kwargs):
         # Get vehicle name
-        self.vehicle_name = rospy.get_param('asv_description/vehicle_name')
+        self.vehicle_name = rospy.get_param('~system_name')
         # Get dictionary of peripherals
-        self.peripherals = rospy.get_param('asv_description/peripherals')
+        self.peripherals = rospy.get_param('asv_description/%s/peripherals' % self.vehicle_name)
 
         # Set handlers for communication
         for p in self.peripherals:

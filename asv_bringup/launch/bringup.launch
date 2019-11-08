@@ -1,7 +1,7 @@
 <launch>
-    <!-- Get hostname -->
-    <arg name="system_name" default="$(optenv HOSTNAME localhost)"/>
+    <arg name="system_name" />
+    <arg name="component" />
     
-    <!-- ASV-specific bringup file -->
-    <include file="$(find asv_bringup)/launch/include/$(arg system_name).launch" />
+    <!-- Load up specific component in system (e.g., description.launch in boat2 system) -->
+    <include file="$(find asv_bringup)/launch/$(arg system_name)/$(arg component).launch" />
 </launch>

@@ -1,0 +1,4 @@
+<launch>    
+    <!-- MAVROS -->
+    <include file="$(find mavros)/launch/apm.launch.airboat" />
+</launch>
