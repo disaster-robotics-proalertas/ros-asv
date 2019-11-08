@@ -3,5 +3,5 @@
     <arg name="component" />
     
     <!-- Load up specific component in system (e.g., description.launch in boat2 system) -->
-    <include file="$(find asv_bringup)/launch/$(arg system_name)/$(arg component).launch" />
+    <include file="$(find asv_bringup)/launch/include/$(arg system_name)/$(arg component).launch" />
 </launch>
