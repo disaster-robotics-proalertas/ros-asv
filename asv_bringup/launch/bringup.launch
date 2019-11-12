@@ -1,7 +1,8 @@
 <launch>
     <arg name="system_name" />
-    <arg name="component" />
     
-    <!-- Load up specific component in system (e.g., description.launch in boat2 system) -->
-    <include file="$(find asv_bringup)/launch/include/$(arg system_name)/$(arg component).launch" />
+    <!-- Include core launches for ASV -->
+    <include file="$(find asv_bringup)/launch/include/$(arg system_name)/description.launch" />
+    <include file="$(find asv_bringup)/launch/include/$(arg system_name)/monitors.launch" />
+    <include file="$(find asv_bringup)/launch/include/$(arg system_name)/peripherals.launch" />
 </launch>
