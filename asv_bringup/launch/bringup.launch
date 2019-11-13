@@ -1,8 +1,0 @@
-<launch>
-    <arg name="system_name" />
-    
-    <!-- Include core launches for ASV -->
-    <include file="$(find asv_bringup)/launch/include/$(arg system_name)/description.launch" />
-    <include file="$(find asv_bringup)/launch/include/$(arg system_name)/monitors.launch" />
-    <include file="$(find asv_bringup)/launch/include/$(arg system_name)/peripherals.launch" />
-</launch>
