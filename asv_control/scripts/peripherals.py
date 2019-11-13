@@ -8,7 +8,7 @@ from system_monitor.msg import VehicleStatus
 class Controller:
     def __init__(self, **kwargs):
         # Get vehicle name
-        self.vehicle_name = rospy.get_param("/asv_description/system_name")
+        self.vehicle_name = socket.gethostname()
         # Get dictionary of peripherals
         self.peripherals = rospy.get_param("asv_description/%s/peripherals" % self.vehicle_name)
 
