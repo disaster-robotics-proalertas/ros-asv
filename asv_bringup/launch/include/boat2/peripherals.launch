@@ -1,6 +1,4 @@
 <launch>    
     <!-- ASV peripherals (e.g., power actuation, signal lights, sound horns, etc) -->
-    <node name="asv_control_peripherals" pkg="asv_control" type="peripherals.py">
-        <param name="system_name" value="boat2"/>
-    </node>
+    <node name="asv_control_peripherals" pkg="asv_control" type="peripherals.py" />
 </launch>

@@ -1,6 +1,4 @@
 <launch>    
-    <!-- ASV peripherals (e.g., power actuation, signal lights, sound horns, etc) -->
-    <node name="asv_logger" pkg="ros_data_logger" type="logger.py">
-        <param name="system_name" value="boat2"/>
-    </node>
+    <!-- Data logger -->
+    <node name="asv_logger" pkg="ros_data_logger" type="logger.py" />
 </launch>
