@@ -1,4 +1,0 @@
-<launch>  
-    <!-- ASV description and parameters -->
-    <include file="$(find asv_description)/launch/asv.launch" />
-</launch>

@@ -1,15 +1,19 @@
 <launch>
+    <!-- ASV description and parameters -->
+    <include file="$(find asv_description)/launch/asv.launch">
+        <arg name="system_name" value="boat2"/>
+    </include>
+
+    <!-- MAVROS -->
+    <include file="$(find mavros)/launch/apm.launch.airboat" />
+
     <!-- System components health monitor -->
     <arg name="config_file" default="$(find system_monitor)/config/monitors.yaml"/>
     <group ns="system_monitor/boat2">
         <node name="cpu_monitor" pkg="system_monitor" type="cpu_monitor.py"/>
         <node name="mem_monitor" pkg="system_monitor" type="mem_monitor.py"/>
-        <node name="net_monitor" pkg="system_monitor" type="net_monitor.py"/>      
-        <node name="timesync_monitor" pkg="system_monitor" type="timesync_monitor.py"/>      
-        <!-- <node name="hdd_monitor" pkg="system_monitor" type="hdd_monitor.py"/> -->
-        <!-- <node name="ntp_monitor" pkg="system_monitor" type="ntp_monitor.py"/> -->
-    </group>
-    
+        <node name="net_monitor" pkg="system_monitor" type="net_monitor.py"/>
+    </group>    
     <rosparam command="load" file="$(arg config_file)"
         ns="system_monitor/boat2"/>
 
@@ -18,4 +22,7 @@
 
     <!-- Vehicle health monitor -->
     <node name="vehicle_monitor" pkg="system_monitor" type="vehicle_monitor.py" />
+
+    <!-- ASV peripherals (e.g., power actuation, signal lights, sound horns, etc) -->
+    <node name="asv_control_peripherals" pkg="asv_control" type="peripherals.py" />
 </launch>

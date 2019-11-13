@@ -1,0 +1,6 @@
+<launch>
+    <arg name="system_name" default="$(env SYSTEM_NAME)"/>
+    
+    <!-- Include core launches for ASV -->
+    <include file="$(find asv_bringup)/launch/include/$(arg system_name).launch" />
+</launch>
