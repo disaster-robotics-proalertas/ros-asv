@@ -3,7 +3,7 @@
 import serial
 import socket
 import rospy
-from system_monitor.msg import VehicleStatus
+from system_monitor.msg import VehicleState
 
 class Controller:
     def __init__(self, **kwargs):
@@ -29,17 +29,17 @@ class Controller:
         self.rate = rospy.Rate(2)   # 2 Hz
 
         # Messages
-        self.vehicle_status = VehicleStatus()
+        self.vehicle_state = VehicleState()
 
     def status_callback(self, msg):
-        self.vehicle_status = msg
+        self.vehicle_state = msg
 
     def run(self):
         # Handle peripherals according to type
         for p in self.peripherals:
             if self.peripherals[p]['type'] == "status_light":
                 try:
-                    self.peripherals[p]['_handle'].write("%d\n" % self.vehicle_status.status)
+                    self.peripherals[p]['_handle'].write("%d\n" % self.vehicle_state.id)
                 except serial.SerialTimeoutException:
                     rospy.logerr("Timeout writing to serial device in %s" % self.peripherals[p]['address'])
 
