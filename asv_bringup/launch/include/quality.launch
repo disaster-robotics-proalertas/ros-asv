@@ -6,7 +6,7 @@
         <node name="mem_monitor" pkg="system_monitor" type="mem_monitor.py"/>
         <node name="net_monitor" pkg="system_monitor" type="net_monitor.py"/>
         <node name="system_monitor" pkg="system_monitor" type="sys_monitor.py" />
-        <node name="timesync_monitor" pkg="timesync_monitor" type="timesync_monitor.py" />
+        <node name="timesync_monitor" pkg="system_monitor" type="timesync_monitor.py" />
     </group>    
     <rosparam command="load" file="$(arg config_file)"
         ns="system_monitor/quality"/>
