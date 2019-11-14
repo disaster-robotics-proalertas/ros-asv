@@ -1,4 +1,0 @@
-<launch>    
-    <!-- Water quality sensors -->
-    <include file="$(find atlas_ros)/launch/sensors.launch" />
-</launch>
