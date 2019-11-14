@@ -23,7 +23,7 @@ class Controller:
                 self.peripherals[p]['_handle'] = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
         # Subscribers
-        self.status_sub = rospy.Subscriber('/system_monitor/%s/vehicle/status' % self.vehicle_name, VehicleState, callback=self.status_callback)
+        self.status_sub = rospy.Subscriber('/system_monitor/%s/vehicle/state' % self.vehicle_name, VehicleState, callback=self.status_callback)
 
         # Rate
         self.rate = rospy.Rate(2)   # 2 Hz
