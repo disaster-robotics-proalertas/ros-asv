@@ -23,7 +23,7 @@
     <node name="asv_control_peripherals" pkg="asv_control" type="peripherals.py" />
 
     <!-- Data logger -->
-    <node name="data_logger" pkg="ros_data_logger" type="logger.py">
+    <node name="data_logger" pkg="ros_data_logger" type="data_logger.py">
         <param name="system_name" value="boat2"/>
     </node>
 </launch>
