@@ -1,9 +1,4 @@
 <launch>
-    <!-- ASV description and parameters -->
-    <include file="$(find asv_description)/launch/asv.launch">
-        <arg name="system_name" value="quality"/>
-    </include>
-
     <!-- System components health monitor -->
     <arg name="config_file" default="$(find system_monitor)/config/monitors.yaml"/>
     <group ns="system_monitor/quality">
