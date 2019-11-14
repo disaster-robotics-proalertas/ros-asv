@@ -12,5 +12,5 @@
         ns="system_monitor/quality"/>
 
     <!-- Water quality sensors -->
-    <include file="$(find atlas_ros)/launch/sensors.launch" />
+    <include file="$(find atlas_ros)/sensors.launch" />
 </launch>
