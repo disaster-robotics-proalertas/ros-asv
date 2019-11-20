@@ -7,6 +7,7 @@ analyzers:
       computers:
         type: GenericAnalyzer
         path: Vehicle CPUs
+        timeout: 15.0
         contains: [
           'CPU Usage',
           'CPU Temperature',
