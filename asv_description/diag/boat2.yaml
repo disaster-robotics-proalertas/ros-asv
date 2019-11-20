@@ -1,0 +1,27 @@
+pub_freq: 1.0
+analyzers:
+  boat2:
+    type: AnalyzerGroup
+    path: Boat 2
+    analyzers:
+      computers:
+        type: GenericAnalyzer
+        path: Vehicle CPUs
+        contains: [
+          'CPU Usage',
+          'CPU Temperature',
+          'Memory',
+          'Network',
+          'Time'
+        ]
+      
+      power:
+        type: GenericAnalyzer
+        path: Vehicle Power
+        timeout: 5.0
+        startswith: 'mavros: Battery'
+        find_and_remove_prefix: 'mavros: Battery'
+      
+      mavros_ignore:
+        type: IgnoreAnalyzer
+        startswith: 'mavros'
