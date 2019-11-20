@@ -12,7 +12,7 @@ analyzers:
           'CPU Temperature',
           'Memory',
           'Network',
-          'Time'
+          'timesyncd'
         ]
       
       power:
