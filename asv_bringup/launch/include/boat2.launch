@@ -26,5 +26,6 @@
     <!-- Data logger -->
     <node name="data_logger" pkg="ros_data_logger" type="data_logger.py">
         <param name="system_name" value="boat2"/>
+        <rosparam command="load" file="$(find ros_data_logger)/param/boat2.yaml"/>
     </node>
 </launch>
