@@ -22,6 +22,7 @@ analyzers:
         startswith: 'mavros: Battery'
         find_and_remove_prefix: 'mavros: Battery'
       
-      mavros_ignore:
-        type: IgnoreAnalyzer
+      mavros_discard:
+        type: DiscardAnalyzer
+        path: Mavros Discard
         startswith: 'mavros'
