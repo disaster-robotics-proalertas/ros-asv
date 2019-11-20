@@ -13,8 +13,12 @@
     <node name="cpu_monitor" pkg="system_monitor" type="cpu_monitor.py"/>
     <node name="mem_monitor" pkg="system_monitor" type="mem_monitor.py"/>
     <node name="net_monitor" pkg="system_monitor" type="net_monitor.py"/>
-    <node name="system_monitor" pkg="system_monitor" type="sys_monitor.py" />
     <node name="vehicle_monitor" pkg="system_monitor" type="vehicle_monitor.py" />
+
+    <!-- Diagnostics aggregator for vehicle -->
+    <node name="boat2_diag_agg" pkg="diagnostic_aggregator" type="aggregator_node">
+        <rosparam command="load" file="$(find asv_description)/diag/boat2.yaml" />
+    </node>
 
     <!-- ASV peripherals (e.g., power actuation, signal lights, sound horns, etc) -->
     <node name="asv_control_peripherals" pkg="asv_control" type="peripherals.py" />
