@@ -15,6 +15,7 @@
         <node name="mem_monitor" pkg="system_monitor" type="mem_monitor.py"/>
         <node name="net_monitor" pkg="system_monitor" type="net_monitor.py"/>
         <node name="vehicle_monitor" pkg="system_monitor" type="vehicle_monitor.py" />
+        <node name="internal_temp_monitor" pkg="system_monitor" type="internal_temp_monitor.py"/>
     </group>
     <!-- Diagnostics aggregator for vehicle -->
     <node name="boat2_diag_agg" pkg="diagnostic_aggregator" type="aggregator_node">
