@@ -1,0 +1,14 @@
+<launch>
+    <!-- System components health monitor -->
+    <group ns="vision">
+        <arg name="config_file" default="$(find system_monitor)/config/monitors.yaml"/>
+        <rosparam command="load" file="$(arg config_file)"/>
+        <node name="cpu_monitor" pkg="system_monitor" type="cpu_monitor.py"/>
+        <node name="mem_monitor" pkg="system_monitor" type="mem_monitor.py"/>
+        <node name="net_monitor" pkg="system_monitor" type="net_monitor.py"/>
+        <node name="timesync_monitor" pkg="system_monitor" type="timesync_monitor.py" />
+    </group>
+
+    <!-- ZED camera launch -->
+    <include file="$(find zedpub)/launch/camera.launch" />
+</launch>
