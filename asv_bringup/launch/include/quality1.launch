@@ -9,6 +9,6 @@
         <!-- <node name="system_monitor" pkg="system_monitor" type="sys_monitor.py" /> -->
         <node name="timesync_monitor" pkg="system_monitor" type="timesync_monitor.py" />
 	<!-- Water quality sensors -->
-	<include file="$(find atlas_ros)/sensors.launch" />
+	<include file="$(find atlas_ros)/serial_sensors.launch" />
     </group>
 </launch>
