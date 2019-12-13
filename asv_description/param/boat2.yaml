@@ -3,10 +3,9 @@ record_command_topic: /mavros/rc/in
 record_command_channel: 8
 record_command_threshold: 1700
 
-sensor_modules:
-  - quality2
-    driver: atlas_ros
-
+sensor_drivers:
+  - /quality2/atlas_ros
+    
 peripherals:
   status_led_strip:
     type: status_light
