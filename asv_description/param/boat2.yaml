@@ -1,11 +1,9 @@
+sensor_drivers:
+  - /quality2/atlas_ros
 fix_topic: /mavros/global_position/raw/fix
 record_command_topic: /mavros/rc/in
 record_command_channel: 8
-record_command_threshold: 1700
-
-sensor_drivers:
-  - /quality2/atlas_ros
-    
+record_command_threshold: 1700    
 peripherals:
   status_led_strip:
     type: status_light
