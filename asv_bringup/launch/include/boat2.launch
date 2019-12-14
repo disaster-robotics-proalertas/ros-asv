@@ -14,6 +14,7 @@
         <node name="cpu_monitor" pkg="system_monitor" type="cpu_monitor.py"/>
         <node name="mem_monitor" pkg="system_monitor" type="mem_monitor.py"/>
         <node name="net_monitor" pkg="system_monitor" type="net_monitor.py"/>
+        <node name="driver_monitor" pkg="system_monitor" type="driver_monitor.py" />
         <node name="vehicle_monitor" pkg="system_monitor" type="vehicle_monitor.py" />
         <node name="internal_temp_monitor" pkg="system_monitor" type="internal_temp_monitor.py"/>
     </group>
