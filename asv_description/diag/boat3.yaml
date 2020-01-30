@@ -1,10 +1,14 @@
 analyzers:
   modules:
-    type: diagnostic_aggregator/GenericAnalyzer
+    type: diagnostic_aggregator/AnalyzerGroup
     path: Modules
-    timeout: 5.0
-    contains: [
-      'quality3']
+    analyzers:
+      quality:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Quality Module Driver
+        timeout: 5.0
+        contains: [
+          'quality3']
 
   sensors:
     type: diagnostic_aggregator/GenericAnalyzer
