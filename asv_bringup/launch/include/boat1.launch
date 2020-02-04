@@ -5,7 +5,7 @@
     </include>
 
     <!-- MAVROS -->
-    <include file="$(find mavros)/launch/apm.launch.airboat" />
+    <include file="$(find mavros)/launch/apm.launch.diff" />
 
     <!-- System components health monitor -->
     <group ns="boat1">
