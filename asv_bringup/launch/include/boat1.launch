@@ -19,7 +19,7 @@
     </group>
     <!-- Diagnostics aggregator for vehicle -->
     <node name="boat1_diag_agg" pkg="diagnostic_aggregator" type="aggregator_node">
-        <rosparam command="load" file="$(find asv_description)/diag/boat1.yaml" />
+        <rosparam command="load" file="$(find asv_description)/diag/vehicle.yaml" />
     </node>
 
     <!-- ASV peripherals (e.g., power actuation, signal lights, sound horns, etc) -->
@@ -28,6 +28,6 @@
     <!-- Data logger -->
     <node name="data_logger" pkg="ros_data_logger" type="data_logger.py">
         <param name="system_name" value="boat1"/>
-        <rosparam command="load" file="$(find ros_data_logger)/param/boat1.yaml"/>
+        <rosparam command="load" file="$(find ros_data_logger)/param/vehicle.yaml"/>
     </node>
 </launch>
