@@ -8,3 +8,6 @@ peripherals:
     communication: serial
     address: /dev/led/strip
     baudrate: 9600
+
+# Insert here modules present on the vehicle
+modules:
