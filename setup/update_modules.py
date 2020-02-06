@@ -4,12 +4,20 @@ import rospkg
 import sys
 import yaml
 
+base_diag = '''analyzers:
+  modules:
+    type: diagnostic_aggregator/AnalyzerGroup
+    path: Modules
+    analyzers:
+'''
+
 user_modules = sys.argv[1:]
 
-# Get param file path from ROS package
+# Get param and diag file paths from ROS package
 rospack = rospkg.RosPack()
 try:
     param_file = rospack.get_path('asv_description') + '/param/vehicle.yaml'
+    diag_file = rospack.get_path('asv_description') + '/diag/modules.yaml'
 except rospkg.ResourceNotFound as exp:
     print "update_modules.py: %s package not found" % exp 
     sys.exit(1)
@@ -30,5 +38,21 @@ if not yaml_file['modules']:
 # Save modified yaml file
 with open(param_file, 'w') as f:
     yaml.dump(yaml_file, f)
+
+with open(diag_file, 'w') as f:
+    # If there are modules to include
+    if len(user_modules) > 0:
+        # Write diag basis to file
+        f.write(base_diag)
+        # Write modules
+        for mod in user_modules:
+            base_mod = '''      %s:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: %s
+        timeout: 10.0
+        startswith: %s
+        find_and_remove_prefix: %s
+''' % (mod, mod.strip('0123456789').capitalize(), mod, mod)
+            f.write(base_mod)
 
 sys.exit(0)
