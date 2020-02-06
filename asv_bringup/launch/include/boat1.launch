@@ -22,6 +22,11 @@
         <rosparam command="load" file="$(find asv_description)/diag/vehicle.yaml" />
     </node>
 
+    <!-- Add diagnostics vehicle modules -->
+    <node name="boat1_add_analyzers" pkg="diagnostic_aggregator" type="add_simple_analyzers">
+        <rosparam command="load" file="$(find asv_description)/diag/modules.yaml" />
+    </node>
+
     <!-- ASV peripherals (e.g., power actuation, signal lights, sound horns, etc) -->
     <node name="asv_control_peripherals" pkg="asv_control" type="peripherals.py" />
 
