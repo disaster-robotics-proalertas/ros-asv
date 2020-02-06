@@ -18,12 +18,12 @@
         <node name="internal_temp_monitor" pkg="system_monitor" type="internal_temp_monitor.py"/>
     </group>
     <!-- Diagnostics aggregator for vehicle -->
-    <node name="boat1_diag_agg" pkg="diagnostic_aggregator" type="aggregator_node">
+    <node name="boat1_base_diag" pkg="diagnostic_aggregator" type="aggregator_node">
         <rosparam command="load" file="$(find asv_description)/diag/vehicle.yaml" />
     </node>
 
     <!-- Add diagnostics vehicle modules -->
-    <node name="boat1_add_analyzers" pkg="diagnostic_aggregator" type="add_simple_analyzers">
+    <node name="boat1_modules_diag" pkg="diagnostic_aggregator" type="add_analyzers">
         <rosparam command="load" file="$(find asv_description)/diag/modules.yaml" />
     </node>
 
