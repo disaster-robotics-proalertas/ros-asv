@@ -1,0 +1,20 @@
+<launch>
+    <arg name="master" default="$(env MASTER_NAME)"/>
+    <group ns="sampler">
+        <!-- System components health monitor -->
+        <arg name="config_file" default="$(find system_monitor)/config/monitors.yaml"/>
+        <rosparam command="load" file="$(arg config_file)"/>
+        <node name="cpu_monitor" pkg="system_monitor" type="cpu_monitor.py"/>
+        <node name="mem_monitor" pkg="system_monitor" type="mem_monitor.py"/>
+        <node name="net_monitor" pkg="system_monitor" type="net_monitor.py"/>
+	    
+        <!-- Water sampler -->
+	    <include file="$(find water_sampler_ros)/sampler.launch" />
+
+        <!-- Timesync -->
+        <node name="timesync_node" pkg="ros_timesync_node" type="timesync_node.py">
+            <param name="topic" value="/$(arg master)/vehicle/time_reference"/>
+            <param name="mode" value="client" />
+        </node>
+    </group>
+</launch>
