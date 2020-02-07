@@ -1,4 +1,3 @@
 <launch>
-    <arg name="system_name"/>
-    <rosparam command="load" file="$(find asv_description)/param/vehicle.yaml" ns="asv_description/$(arg system_name)"/>
+    <rosparam command="load" file="$(find asv_description)/param/vehicle.yaml" ns="asv_description"/>
 </launch>

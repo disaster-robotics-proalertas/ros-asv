@@ -1,8 +1,8 @@
-fix_topic: /mavros/global_position/raw/fix
+fix_topic: mavros/global_position/raw/fix
 modules: ['']
 peripherals:
   status_led_strip: {address: /dev/led/strip, baudrate: 9600, communication: serial,
     type: status_light}
 record_command_channel: 8
 record_command_threshold: 1700
-record_command_topic: /mavros/rc/in
+record_command_topic: mavros/rc/in
