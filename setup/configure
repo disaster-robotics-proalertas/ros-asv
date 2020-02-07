@@ -36,7 +36,10 @@ if [ "$#" -lt 1 ]; then
 fi
 
 source /opt/ros/kinetic/setup.bash
-source /home/pi/ros_wps/devel/setup.bash
+# Run only on Rasp 3
+if [ "$PROC_REV" == "a22082" ]; then
+  source /home/pi/ros_wps/devel/setup.bash
+fi
 
 SYSTEM_NAME=$HOSTNAME
 MASTER=$1
@@ -46,10 +49,12 @@ USER_MODULES=${@:2}
 echo " -- Disabling systemd services -- "
 systemctl stop bringup.service
 systemctl stop sonar.service
-systemctl stop timesyncd.service
 systemctl disable bringup.service
 systemctl disable sonar.service
-systemctl disable timesyncd.service
+if [ "$PROC_REV" == "a22082" ]; then
+  systemctl stop timesyncd.service
+  systemctl disable timesyncd.service
+fi
 
 # Reconfigure hosts for system name
 echo " -- Updating /etc/hosts file -- "
@@ -63,16 +68,18 @@ sed -i "/ROS_HOSTNAME/ s/.*/ROS_HOSTNAME=$SYSTEM_NAME/g" /etc/bringup/environmen
 sed -i "/ROS_MASTER_URI/ s/.*/ROS_MASTER_URI=http:\/\/$MASTER:11311/g" /etc/bringup/environment
 
 # Update vehicle parameters file with the modules
-echo " -- Updating vehicle parameters with modules provided -- "
-python update_modules.py $USER_MODULES
+# Run only on Rasp 3
+if [ "$PROC_REV" == "a22082" ]; then
+  echo " -- Updating vehicle parameters with modules provided -- "
+  python /etc/setup/update_modules.py $USER_MODULES
 
-# Configure modules' master remotely
-echo " -- Remotely configuring modules' network variables and rebooting them -- "
-for MOD in $USER_MODULES; do
-  sshpass -p "lsa" ssh -o StrictHostKeyChecking=no pi@$MOD "sudo sed -i \"/MASTER_NAME/ s/.*/MASTER_NAME=$MASTER/g\" /etc/bringup/environment"
-  sshpass -p "lsa" ssh -o StrictHostKeyChecking=no pi@$MOD "sudo sed -i \"/ROS_MASTER_URI/ s/.*/ROS_MASTER_URI=http:\/\/$MASTER:11311/g\" /etc/bringup/environment"
-  sshpass -p "lsa" ssh -o StrictHostKeyChecking=no pi@$MOD "sudo reboot"
-done
+  # Configure modules' master remotely
+  echo " -- Remotely configuring modules' network variables and rebooting them -- "
+  for MOD in $USER_MODULES; do
+    sshpass -p "lsa" ssh -o StrictHostKeyChecking=no pi@$MOD "sudo /bin/bash /etc/setup/configure $MASTER"
+    sshpass -p "lsa" ssh -o StrictHostKeyChecking=no pi@$MOD "sudo reboot"
+  done
+fi
 
 # Reload systemd services
 echo " -- Reloading systemd services -- "
