@@ -62,16 +62,6 @@ sed -i "/MASTER_NAME/ s/.*/MASTER_NAME=$MASTER/g" /etc/bringup/environment
 sed -i "/ROS_HOSTNAME/ s/.*/ROS_HOSTNAME=$SYSTEM_NAME/g" /etc/bringup/environment
 sed -i "/ROS_MASTER_URI/ s/.*/ROS_MASTER_URI=http:\/\/$MASTER:11311/g" /etc/bringup/environment
 
-# Update configuration file for timesync daemon
-echo " -- Updating timesync daemon configuration -- "
-sed -i "/MASTER_HOSTNAME/ s/.*/MASTER_HOSTNAME=$MASTER/g" /etc/timesyncd/timesyncd.conf
-
-# If system name is any of the modules, timesyncd must be set to client mode
-if `contains "$MODULES" "$SYSTEM_NAME"`; then
-  echo " -- Module $SYSTEM_NAME using client mode -- "
-  sed -i "/MODE/ s/.*/MODE=client/g" /etc/timesyncd/timesyncd.conf
-fi
-
 # Update vehicle parameters file with the modules
 echo " -- Updating vehicle parameters with modules provided -- "
 python update_modules.py $USER_MODULES
