@@ -2,6 +2,11 @@
 
 MODULES=("quality1" "quality2" "quality3" "jetson1" "jetson2" "sampler" "sonar")
 
+# Get processor revision number
+# a22082 for Rasp 3
+# 9000c1 for Rasp Zero
+PROC_REV=$(cat /proc/cpuinfo | grep Revision | awk '{print $3}')
+
 function contains {
   local list="$1"
   local item="$2"
@@ -83,6 +88,11 @@ systemctl daemon-reload
 
 # Enable and restart systemd services
 echo " -- Enabling systemd services -- "
+# Update configuration file for timesync daemon
+# Run only on Rasp 3
+if [ "$PROC_REV" == "a22082" ]; then
+  echo " -- Updating timesync daemon configuration -- "
+  sed -i "/MASTER_HOSTNAME/ s/.*/MASTER_HOSTNAME=$MASTER/g" /etc/timesyncd/timesyncd.conf
 systemctl enable timesyncd.service
 systemctl restart timesyncd.service
 systemctl enable bringup.service
