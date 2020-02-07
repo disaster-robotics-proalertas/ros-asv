@@ -93,8 +93,10 @@ echo " -- Enabling systemd services -- "
 if [ "$PROC_REV" == "a22082" ]; then
   echo " -- Updating timesync daemon configuration -- "
   sed -i "/MASTER_HOSTNAME/ s/.*/MASTER_HOSTNAME=$MASTER/g" /etc/timesyncd/timesyncd.conf
-systemctl enable timesyncd.service
-systemctl restart timesyncd.service
+  systemctl enable timesyncd.service
+  systemctl restart timesyncd.service
+fi
+
 systemctl enable bringup.service
 systemctl restart bringup.service
 
