@@ -58,6 +58,7 @@ sed -i "/$SYSTEM_NAME/ s/.*/127.0.1.1\t$SYSTEM_NAME/g" /etc/hosts
 # Update environment file for bringup service
 echo " -- Updating environment file for bringup service -- "
 sed -i "/SYSTEM_NAME/ s/.*/SYSTEM_NAME=$SYSTEM_NAME/g" /etc/bringup/environment
+sed -i "/MASTER_NAME/ s/.*/MASTER_NAME=$MASTER/g" /etc/bringup/environment
 sed -i "/ROS_HOSTNAME/ s/.*/ROS_HOSTNAME=$SYSTEM_NAME/g" /etc/bringup/environment
 sed -i "/ROS_MASTER_URI/ s/.*/ROS_MASTER_URI=http:\/\/$MASTER:11311/g" /etc/bringup/environment
 
@@ -78,6 +79,7 @@ python update_modules.py $USER_MODULES
 # Configure modules' master remotely
 echo " -- Remotely configuring modules' network variables and rebooting them -- "
 for MOD in $USER_MODULES; do
+  sshpass -p "lsa" ssh -o StrictHostKeyChecking=no pi@$MOD "sudo sed -i \"/MASTER_NAME/ s/.*/MASTER_NAME=$MASTER/g\" /etc/bringup/environment"
   sshpass -p "lsa" ssh -o StrictHostKeyChecking=no pi@$MOD "sudo sed -i \"/ROS_MASTER_URI/ s/.*/ROS_MASTER_URI=http:\/\/$MASTER:11311/g\" /etc/bringup/environment"
   sshpass -p "lsa" ssh -o StrictHostKeyChecking=no pi@$MOD "sudo reboot"
 done
