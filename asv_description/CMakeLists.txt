@@ -8,10 +8,14 @@ find_package(catkin REQUIRED COMPONENTS)
 
 catkin_package()
 
-install(DIRECTORY param
+install(DIRECTORY launch
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
-install(DIRECTORY launch
+install(DIRECTORY diag
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+
+install(DIRECTORY param
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
