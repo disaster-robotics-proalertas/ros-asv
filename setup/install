@@ -75,6 +75,18 @@ if [ "$PROC_REV" == "a22082" ]; then
     reset_usb 1a86 7523
 fi
 
+# Install this folder to /etc
+echo " -- Installing setup files for configuration -- "
+mkdir /etc/setup
+cp -r * /etc/setup
+
+# Symbolic link to /usr/bin so we can run the scripts on regular shells
+echo " -- Creating symbolic links to install and configure scripts -- "
+sudo ln -s /etc/setup/install /usr/bin/asv_install
+echo " -- install -> asv_install --"
+sudo ln -s /etc/setup/configure /usr/bin/asv_configure
+echo " -- configure -> asv_configure --"
+
 # Install more dependencies
 apt install sysstat ifstat python-psutil sshpass
 
