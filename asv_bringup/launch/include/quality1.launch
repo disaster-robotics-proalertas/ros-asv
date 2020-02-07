@@ -10,5 +10,11 @@
         <node name="timesync_monitor" pkg="system_monitor" type="timesync_monitor.py" />
 	<!-- Water quality sensors -->
 	<include file="$(find atlas_ros)/i2c_sensors.launch" />
+
+        <!-- Timesync -->
+        <node name="timesync_node" pkg="ros_timesync_node" type="timesync_node.py">
+            <param name="topic" value="/$(arg master)/vehicle/time_reference"/>
+            <param name="mode" value="client" />
+        </node>
     </group>
 </launch>
