@@ -51,10 +51,8 @@ systemctl stop bringup.service
 systemctl stop sonar.service
 systemctl disable bringup.service
 systemctl disable sonar.service
-if [ "$PROC_REV" == "a22082" ]; then
-  systemctl stop timesyncd.service
-  systemctl disable timesyncd.service
-fi
+systemctl stop timesyncd.service
+systemctl disable timesyncd.service
 
 # Reconfigure hosts for system name
 echo " -- Updating /etc/hosts file -- "
@@ -81,21 +79,23 @@ if [ "$PROC_REV" == "a22082" ]; then
   done
 fi
 
+# Update configuration file for timesync daemon
+echo " -- Updating timesync daemon configuration -- "
+sed -i "/MASTER_HOSTNAME/ s/.*/MASTER_HOSTNAME=$MASTER/g" /etc/timesyncd/timesyncd.conf
+if [ "$PROC_REV" == "a22082" ]; then
+  sed -i "/MODE/ s/.*/MODE=server/g" /etc/timesyncd/timesyncd.conf
+else
+  sed -i "/MODE/ s/.*/MODE=client/g" /etc/timesyncd/timesyncd.conf
+fi
+
 # Reload systemd services
 echo " -- Reloading systemd services -- "
 systemctl daemon-reload
 
 # Enable and restart systemd services
 echo " -- Enabling systemd services -- "
-# Update configuration file for timesync daemon
-# Run only on Rasp 3
-if [ "$PROC_REV" == "a22082" ]; then
-  echo " -- Updating timesync daemon configuration -- "
-  sed -i "/MASTER_HOSTNAME/ s/.*/MASTER_HOSTNAME=$MASTER/g" /etc/timesyncd/timesyncd.conf
-  systemctl enable timesyncd.service
-  systemctl restart timesyncd.service
-fi
-
+systemctl enable timesyncd.service
+systemctl restart timesyncd.service
 systemctl enable bringup.service
 systemctl restart bringup.service
 

@@ -42,21 +42,26 @@ echo " -- Installing hosts file -- "
 cp hosts /etc
 sed -i "/$HOSTNAME/ s/.*/127.0.1.1\t$HOSTNAME/g" /etc/hosts
 
+# Install timesync daemon
+echo " -- Compiling and installing timesync daemon -- "
+rm /etc/systemd/system/timesyncd.service
+rm /etc/timesyncd/timesyncd.conf
+mkdir timesyncd/build
+cd timesyncd/build
+cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+make install
+cd ../..
+
+# Remove any other NTP service/script
+sudo update-rc.d ntp disable
+sudo update-rc.d chrony disable
+sudo systemctl disable systemd-timesyncd.service
+
+# Enable timesync service
+systemctl enable timesyncd.service
+
 # Run only on Rasp 3
 if [ "$PROC_REV" == "a22082" ]; then
-    # Install timesync daemon
-    echo " -- Compiling and installing timesync daemon -- "
-    rm /etc/systemd/system/timesyncd.service
-    rm /etc/timesyncd/timesyncd.conf
-    mkdir timesyncd/build
-    cd timesyncd/build
-    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-    make install
-    cd ../..
-
-    # Enable timesync service
-    systemctl enable timesyncd.service
-
     # Update sources for ROS
     echo " -- Updating ROS apt sources -- "
     echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources.list.d/ros-latest.list
