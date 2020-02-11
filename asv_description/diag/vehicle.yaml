@@ -2,7 +2,7 @@ analyzers:
   sensors:
     type: diagnostic_aggregator/GenericAnalyzer
     path: Sensors
-    timeout: 5.0
+    timeout: 10.0
     contains: [
       'Internal Temperature']
 
@@ -20,7 +20,7 @@ analyzers:
   power:
     type: diagnostic_aggregator/GenericAnalyzer
     path: Power System
-    timeout: 5.0
+    timeout: 10.0
     contains: [
       'Battery']
 
