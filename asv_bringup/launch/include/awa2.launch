@@ -1,0 +1,43 @@
+<launch>
+    <!-- ASV description and parameters -->
+    <group ns="awa2">
+        <include file="$(find asv_description)/launch/asv.launch" />
+
+        <!-- MAVROS -->
+        <include file="$(find mavros)/launch/apm.launch.airboat" />
+
+        <!-- System components health monitor -->
+        <arg name="config_file" default="$(find system_monitor)/config/monitors.yaml"/>
+        <rosparam command="load" file="$(arg config_file)"/>
+        <node name="cpu_monitor" pkg="system_monitor" type="cpu_monitor.py"/>
+        <node name="mem_monitor" pkg="system_monitor" type="mem_monitor.py"/>
+        <node name="net_monitor" pkg="system_monitor" type="net_monitor.py"/>
+        <node name="vehicle_monitor" pkg="system_monitor" type="vehicle_monitor.py" />
+        <node name="internal_temp_monitor" pkg="system_monitor" type="internal_temp_monitor.py"/>
+        
+        <!-- Diagnostics aggregator for vehicle -->
+        <node name="base_diag" pkg="diagnostic_aggregator" type="aggregator_node">
+            <rosparam command="load" file="$(find asv_description)/diag/vehicle.yaml" />
+        </node>
+
+        <!-- Add diagnostics vehicle modules -->
+        <node name="modules_diag" pkg="diagnostic_aggregator" type="add_analyzers">
+            <rosparam command="load" file="$(find asv_description)/diag/modules.yaml" />
+        </node>
+
+        <!-- ASV peripherals (e.g., power actuation, signal lights, sound horns, etc) -->
+        <node name="control_peripherals" pkg="asv_control" type="peripherals.py" />
+
+        <!-- Data logger -->
+        <node name="data_logger" pkg="ros_data_logger" type="data_logger.py">
+            <param name="system_name" value="awa1"/>
+            <rosparam command="load" file="$(find ros_data_logger)/param/vehicle.yaml"/>
+        </node>
+
+        <!-- Timesync -->
+        <node name="timesync_node" pkg="ros_timesync_node" type="timesync_node.py">
+            <param name="topic" value="vehicle/time_reference"/>
+            <param name="mode" value="server" />
+        </node>
+    </group>
+</launch>
