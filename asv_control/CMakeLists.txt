@@ -10,7 +10,6 @@ project(asv_control)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
-  asv_description
 )
 
 ## System dependencies are found with CMake's conventions
